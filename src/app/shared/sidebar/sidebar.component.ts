@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent {
 
-  constructor(private authServicio: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   cerrarSesion() {
-    this.authServicio.logoutUsuario().then( () => {
+    this.authService.logoutUser().then( () => {
       this.router.navigate(['/login']);
     });
   }

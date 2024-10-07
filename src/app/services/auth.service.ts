@@ -19,16 +19,18 @@ export class AuthService {
 
   }
 
-  crearUsuario(nombre: string, email: string, password: string) {
+  createUser(name: string, email: string, password: string) {
     //console.log(nombre, email, password);
-    return this.auth.createUserWithEmailAndPassword(email, password);
+    return this.auth.createUserWithEmailAndPassword(email, password).then(fbUser => {
+
+    })
   }
 
-  loginUsuario(email: string, password: string) {
+  loginUser(email: string, password: string) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
-  logoutUsuario() {
+  logoutUser() {
     return this.auth.signOut();
   }
 

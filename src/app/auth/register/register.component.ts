@@ -11,23 +11,23 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent {
   
-  registroForm!: FormGroup;
+  registrerForm!: FormGroup;
   
-  constructor(private fb: FormBuilder, private authServicio: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.registroForm = this.fb.group({
-      nombre: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
+    this.registrerForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
 
-  crearUsuario() {
+  createUser() {
     
-    if (this.registroForm.invalid) {return;}
+    if (this.registrerForm.invalid) {return;}
 
     Swal.fire({
       title: 'Espere por favor',
@@ -36,10 +36,10 @@ export class RegisterComponent {
       }
     });
 
-    const {nombre, correo, password} = this.registroForm.value;
+    const {name, email, password} = this.registrerForm.value;
     
-    this.authServicio.crearUsuario(nombre, correo, password).then(credenciales => {
-      console.log(credenciales);
+    this.authService.createUser(name, email, password).then(credentials => {
+      console.log(credentials);
       Swal.close();
       this.router.navigate(['/']);
     }).catch(err => {
@@ -51,9 +51,9 @@ export class RegisterComponent {
       });
     });    
 
-    // console.log(this.registroForm);
-    // console.log(this.registroForm.valid);
-    // console.log(this.registroForm.value);
+    // console.log(this.registerForm);
+    // console.log(this.registerForm.valid);
+    // console.log(this.registerForm.value);
   }
 
 }

@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authServicio: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
 
   }
 
@@ -20,12 +20,12 @@ export class LoginComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.loginForm = this.fb.group({
-      correo: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
   }
 
-  iniciarSesion() {
+  login() {
     if (this.loginForm.invalid) {return;}
 
     Swal.fire({
@@ -35,10 +35,10 @@ export class LoginComponent {
       }
     });
 
-    const {correo, password} = this.loginForm.value;
+    const {email, password} = this.loginForm.value;
     
-    this.authServicio.loginUsuario(correo, password).then(credenciales => {
-      console.log(credenciales);
+    this.authService.loginUser(email, password).then(credentials => {
+      console.log(credentials);
       Swal.close();
       this.router.navigate(['/']);
     }).catch(err => {
