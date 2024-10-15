@@ -43,7 +43,7 @@ export class LoginComponent {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.uiSub.unsubscribe();
+    this.uiSub?.unsubscribe();
   }
 
   login() {
@@ -61,7 +61,6 @@ export class LoginComponent {
     const {email, password} = this.loginForm.value;
     
     this.authService.loginUser(email, password).then(credentials => {
-      console.log(credentials);
       // Swal.close();
       this.store.dispatch(ui.stopLoading());
       this.router.navigate(['/']);

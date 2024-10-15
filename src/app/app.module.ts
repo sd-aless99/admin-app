@@ -1,12 +1,9 @@
+//angular y modulos app
+import { AppComponent } from './app.component';
 import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
-
-//charts
-import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
-import { ChartComponent } from './admin/estadistica/chart/chart.component';
+import { AuthModule } from './auth/auth.module';
 
 //ngrx
 import { StoreModule } from '@ngrx/store';
@@ -14,25 +11,12 @@ import { appReducers } from './app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
 //angularfire
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-
-//componentes de la app
-import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TransactionComponent } from './admin/transaction.component';
-import { EstadisticaComponent } from './admin/estadistica/estadistica.component';
-import { DetalleComponent } from './admin/detalle/detalle.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { TransactionOrderPipe } from './pipes/transaction-order.pipe';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 const config = {
   "projectId":"redux-admin-app",
@@ -47,25 +31,16 @@ const config = {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    DashboardComponent,
-    TransactionComponent,
-    EstadisticaComponent,
-    DetalleComponent,
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
-    TransactionOrderPipe,
   ],
   imports: [
     BrowserModule,
+    AuthModule,
     AppRoutingModule,
-    ReactiveFormsModule,
+
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    ChartComponent,
+
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -76,7 +51,7 @@ const config = {
     provideFirebaseApp(() => initializeApp(config)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideCharts(withDefaultRegisterables()),
+    
   ],
   bootstrap: [AppComponent]
 })

@@ -44,7 +44,7 @@ export class AuthService {
         })
       } else {
         if (this.userSubs) {
-          this.userSubs.unsubscribe();
+          this.userSubs?.unsubscribe();
         }
         this.store.dispatch(authAct.unSetUser());
         this.store.dispatch(transAct.unsetItems());

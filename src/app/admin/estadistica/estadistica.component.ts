@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
 import { Transaction } from '../../models/transaction.model';
+import { AppStateAdmin } from '../transaction.reducer';
 
 @Component({
   selector: 'app-estadistica',
@@ -17,7 +17,7 @@ export class EstadisticaComponent {
   depositSum: number = 0;
   withdrawalSum: number = 0;
 
-  constructor(private store:Store<AppState>) {}
+  constructor(private store:Store<AppStateAdmin>) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.

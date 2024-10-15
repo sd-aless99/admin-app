@@ -6,7 +6,7 @@ import * as transaction from './admin/transaction.reducer';
 export interface AppState {
    ui: ui.State,
    user: auth.State,
-   transaction: transaction.State
+   // transaction: transaction.State
 }
 
 
@@ -14,5 +14,5 @@ export interface AppState {
 export const appReducers: ActionReducerMap<AppState> = {
    ui: ui.uiReducer,
    user: auth.authReducer,
-   transaction: transaction.transactionReducer
+   // transaction: transaction.transactionReducer
 }

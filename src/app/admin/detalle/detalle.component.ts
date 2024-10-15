@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
 import { Transaction } from '../../models/transaction.model';
 import { Subscription } from 'rxjs';
 import { TransactionService } from '../../services/transaction.service';
 import Swal from 'sweetalert2';
+import { AppStateAdmin } from '../transaction.reducer';
 
 @Component({
   selector: 'app-detalle',
@@ -16,7 +16,7 @@ export class DetalleComponent {
   transactionItems: Transaction[] = [];
   transactionSubs!: Subscription;
   
-  constructor(private store: Store<AppState>, private transactionService: TransactionService) {}
+  constructor(private store: Store<AppStateAdmin>, private transactionService: TransactionService) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -29,7 +29,7 @@ export class DetalleComponent {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     
-    this.transactionSubs.unsubscribe();
+    this.transactionSubs?.unsubscribe();
   }
 
   removeItem(uid?: string) {

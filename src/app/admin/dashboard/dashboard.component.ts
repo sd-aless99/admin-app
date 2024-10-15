@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.reducer';
+import { AppState } from '../../app.reducer';
 import { filter, Subscription } from 'rxjs';
-import { TransactionService } from '../services/transaction.service';
-import { setItems } from '../admin/transaction.actions';
+import { TransactionService } from '../../services/transaction.service';
+import { setItems } from '../transaction.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,8 +38,8 @@ export class DashboardComponent {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.transactionSubs.unsubscribe();
-    this.userSubs.unsubscribe();
+    this.transactionSubs?.unsubscribe();
+    this.userSubs?.unsubscribe();
   }
 
 }

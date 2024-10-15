@@ -37,6 +37,4 @@ export class ChartComponent {
     //Add 'implements OnInit' to the class.
     this.doughnutChartData = {labels: this.doughnutChartLabels, datasets: [{data: [this.deposit, this.withdrawal]}]};
   }
-
-  
 }

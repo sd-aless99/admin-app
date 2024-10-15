@@ -45,7 +45,7 @@ export class RegisterComponent {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.uiSub.unsubscribe();
+    this.uiSub?.unsubscribe();
   }
 
   createUser() {
@@ -64,7 +64,6 @@ export class RegisterComponent {
     const {name, email, password} = this.registrerForm.value;
     
     this.authService.createUser(name, email, password).then(credentials => {
-      console.log(credentials);
       // Swal.close();
       this.store.dispatch(ui.stopLoading());
       this.router.navigate(['/']);
