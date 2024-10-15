@@ -2,42 +2,45 @@
     <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Agregar Ingreso / Egreso</h4>
+            <h4 class="card-title">Agregar Transaccion</h4>
             <p class="card-description">
-              Especifique el monto y el tipo
+              Especifique el importe y el tipo
             </p>
 
-            <form>
+            <form [formGroup]="transactionForm" (ngSubmit)="saveChanges()">
               
               <div class="form-group">
                 <label>Descripción</label>
                 <input type="text" 
                        class="form-control" 
-                       placeholder="Descripción"
-                       name="descripcion">
+                       formControlName="description"
+                       placeholder="Descripción">
               </div>
 
               <div class="form-group">
-                  <label>Monto</label>
+                  <label>Importe</label>
                   <input type="number" 
                          class="form-control" 
-                         placeholder="Monto"
-                         name="monto">
+                         formControlName="amount"
+                         placeholder="Importe">
                     <p>
-                      Debe de ser un monto positivo
+                      Debe de ser un importe positivo
                     </p>
                 </div>
 
               <div class="form-group">
                   <label>Tipo</label>
                   <br>
-                  <button type="button" class="btn btn-primary btn-block">Ingreso</button>
-                  <!-- <button type="button" class="btn btn-warning btn-block">Egreso</button> -->
+                  <button *ngIf="transactionType === 'ingreso'" (click)="transactionType = 'retirada'" type="button" class="btn btn-primary btn-block">Ingreso</button>
+                  <button *ngIf="transactionType === 'retirada'" (click)="transactionType = 'ingreso'" type="button" class="btn btn-warning btn-block">Retirada</button>
               </div>
 
               <hr>
-              <button type="button" class="btn btn-success mr-2">
-                <i class="fa fa-save"></i>
+              <button type="submit" 
+                      [disabled]="transactionForm.invalid || loading"
+                      class="btn btn-success mr-2">
+                <i *ngIf="!loading" class="fa fa-save"></i>
+                <i *ngIf="loading" class="fa fa-spin fa-sync"></i>
                 Agregar
               </button>
 

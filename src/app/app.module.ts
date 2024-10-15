@@ -4,6 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
+//charts
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { ChartComponent } from './admin/estadistica/chart/chart.component';
+
 //ngrx
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './app.reducer';
@@ -22,12 +26,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AdminComponent } from './admin/admin.component';
+import { TransactionComponent } from './admin/transaction.component';
 import { EstadisticaComponent } from './admin/estadistica/estadistica.component';
 import { DetalleComponent } from './admin/detalle/detalle.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { TransactionOrderPipe } from './pipes/transaction-order.pipe';
 
 const config = {
   "projectId":"redux-admin-app",
@@ -45,12 +50,13 @@ const config = {
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    AdminComponent,
+    TransactionComponent,
     EstadisticaComponent,
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    TransactionOrderPipe,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +65,7 @@ const config = {
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    ChartComponent,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -68,7 +75,8 @@ const config = {
   providers: [
     provideFirebaseApp(() => initializeApp(config)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideCharts(withDefaultRegisterables()),
   ],
   bootstrap: [AppComponent]
 })

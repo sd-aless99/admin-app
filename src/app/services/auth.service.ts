@@ -8,6 +8,7 @@ import { User } from '../models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import * as authAct from '../auth/auth.actions';
+import * as transAct from '../admin/transaction.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,13 @@ import * as authAct from '../auth/auth.actions';
 export class AuthService {
 
   userSubs!: Subscription;
+ 
+  //propiedad privada, solo para lectura y tiene getter
+  private _user!: User;
+
+  get user() {
+    return {...this._user};
+  }
 
   constructor(public auth: AngularFireAuth,
               private store: Store<AppState>, 
@@ -26,8 +34,12 @@ export class AuthService {
       if (fuser) {
         this.userSubs = this.firestore.doc(`${fuser.uid}/usuario`).valueChanges()
         .subscribe( (firestoreUser: any) => {
-          console.log(firestoreUser);
+          console.log({firestoreUser});
           const tempUser = User.fromFirebase(firestoreUser);
+
+          //inicializar propiedad de lectura _user una vez que se obtienen los datos
+          this._user = tempUser;
+
           this.store.dispatch(authAct.setUser({user: tempUser}));
         })
       } else {
@@ -35,6 +47,7 @@ export class AuthService {
           this.userSubs.unsubscribe();
         }
         this.store.dispatch(authAct.unSetUser());
+        this.store.dispatch(transAct.unsetItems());
       }
     });
   }
